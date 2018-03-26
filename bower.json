@@ -1,0 +1,28 @@
+{
+  "name": "sinapp",
+  "description": "fumec sinapp",
+  "main": "index.js",
+  "authors": [
+    "Matheus Amaro <matheus.amaro@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "fumec",
+    "sinapp",
+    "universidade",
+    "faculdade"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1"
+  }
+}

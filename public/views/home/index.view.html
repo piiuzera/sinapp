@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="ibox-content" ng-show="!aluno">
+            <form class="m-t" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="registro_academico" placeholder="Registro Acadêmico">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" ng-model="senha" placeholder="Senha">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b" ng-click="attempt()" data-loading-text="Acessando..." class="btn btn-primary" autocomplete="off">
+                    Acessar
+                </button>
+
+                <p class="text-danger text-center">
+                    <small>{{ error.mensagem }}</small>
+                </p>
+            </form>
+        </div>
+
+        <div class="ibox-content" ng-show="aluno">
+            <div class="m-t">
+                <div class="form-group">
+                    <p class="text-center">
+                        <h1>{{ 'Olá, ' + aluno.nome + '.' }}</h1>
+                    </p>
+
+                    <p class="text-center">
+                        <h4>O que você gostaria de ver agora ?</h4>
+                    </p>
+                </div>
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation">
+                        <a href="#" class="btn btn-link" ng-click="points()" data-button="true" data-loading-text="Acessando..." autocomplete="off">
+                            Notas
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#" class="btn btn-link" ng-click="schedules()" data-button="true" data-loading-text="Acessando..." autocomplete="off">
+                            Horários
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#" class="btn btn-link" ng-click="logout()" data-button="true" data-loading-text="Saindo..." autocomplete="off">
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+
+                <p class="text-danger text-center">
+                    <small>{{ error.mensagem }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2 class="font-bold">SINAPP - Universidade FUMEC</h2>
+
+        <p>
+           Com este serviço, você pode consultar suas notas e horários mais fáceis, num é bacana ? 
+        </p>
+
+        <p>
+            Porém, somos uma plataforma completamente independente da FUMEC.
+        </p>
+
+        <p>
+            Foram alunos que criaram este sistema e não possui nenhum vínculo com a FUMEC.
+        </p>
+
+        <p>
+            Qualquer problema que ocorrer com suas notas, a responsável será a FUMEC.
+        </p>
+    </div>
+</div>
+
+<div class="row ibox-content" ng-show="notas">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Faltas Total</th>
+                        <th>Faltas Maxima</th>
+                        <th>AAI</th>
+                        <th>RSC</th>
+                        <th>Aval. 1</th>
+                        <th>Aval. 2</th>
+                        <th>Aval. 3</th>
+                        <th>Ex. Especial</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="nota in aluno.notas">
+                        <td>{{ nota.disciplina }}</td>
+                        <td>{{ nota.faltas_total }}</td>
+                        <td>{{ nota.faltas_maxima }}</td>
+                        <td>{{ nota.atividade_autoinstrucional }}</td>
+                        <td>{{ nota.revisao_conteudo }}</td>
+                        <td>{{ nota.aval_1 }}</td>
+                        <td>{{ nota.aval_2 }}</td>
+                        <td>{{ nota.aval_3 }}</td>
+                        <td>{{ nota.exame_especial }}</td>
+                        <td>{{ nota.total }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row ibox-content" ng-show="calendario_semanal">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Dia Semana</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="calendario_semanal in aluno.calendario_semanal">
+                        <td>{{ calendario_semanal.dia_semana }}</td>
+                        <td ng-repeat="aula in calendario_semanal.horarios">
+                            <p>
+                                <h4>{{aula.disciplina}}</h4>
+                            </p>
+                            <p>{{'Turma: ' + aula.turma}}</p>
+                            <p>{{'Início: ' + aula.horario_inicio}}</p>
+                            <p>{{'Termino: ' + aula.horario_termino}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('button').click(function() {
+            $(this).button('loading');
+        });
+
+        $('a[data-button=\'true\']').click(function() {
+            $(this).button('loading');
+        });
+
+        $('.nav li a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>
